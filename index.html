@@ -1,433 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>✨ Choose ABM Strand ✨</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #ffeef8 0%, #ffd6e7 50%, #ffcccb 100%);
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        /* Floating hearts animation */
-        .hearts {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .heart {
-            position: absolute;
-            color: #ff69b4;
-            font-size: 20px;
-            animation: float 6s infinite linear;
-        }
-
-        @keyframes float {
-            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
-        }
-
-        /* Header */
-        .header {
-            text-align: center;
-            padding: 2rem 1rem;
-            position: relative;
-            z-index: 10;
-        }
-
-        .logo {
-            font-family: 'Dancing Script', cursive;
-            font-size: 3.5rem;
-            background: linear-gradient(45deg, #ff1493, #ff69b4, #ffb6c1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 0.5rem;
-            animation: glow 2s ease-in-out infinite alternate;
-        }
-
-        @keyframes glow {
-            from { text-shadow: 0 0 20px #ff69b4; }
-            to { text-shadow: 0 0 30px #ff1493, 0 0 40px #ff69b4; }
-        }
-
-        .subtitle {
-            font-size: 1.3rem;
-            color: #ff69b4;
-            font-weight: 300;
-            margin-bottom: 1rem;
-        }
-
-        /* Main Content */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem 1rem;
-            position: relative;
-            z-index: 10;
-        }
-
-        /* Interactive Cards */
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 25px;
-            padding: 2.5rem 2rem;
-            text-align: center;
-            box-shadow: 0 20px 40px rgba(255, 105, 180, 0.2);
-            border: 2px solid rgba(255, 105, 180, 0.3);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 182, 193, 0.4), transparent);
-            transition: left 0.5s;
-        }
-
-        .card:hover::before {
-            left: 100%;
-        }
-
-        .card:hover {
-            transform: translateY(-15px) scale(1.05);
-            box-shadow: 0 30px 60px rgba(255, 105, 180, 0.4);
-            border-color: #ff69b4;
-        }
-
-        .card-icon {
-            font-size: 4rem;
-            color: #ff69b4;
-            margin-bottom: 1.5rem;
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-10px); }
-            60% { transform: translateY(-5px); }
-        }
-
-        .card h3 {
-            font-family: 'Dancing Script', cursive;
-            font-size: 2rem;
-            color: #ff1493;
-            margin-bottom: 1rem;
-        }
-
-        .card p {
-            color: #666;
-            line-height: 1.7;
-            font-size: 1.1rem;
-        }
-
-        /* CTA Button */
-        .cta-section {
-            text-align: center;
-            margin-top: 4rem;
-        }
-
-        .cta-button {
-            display: inline-block;
-            background: linear-gradient(45deg, #ff1493, #ff69b4);
-            color: white;
-            padding: 1.2rem 3rem;
-            border-radius: 50px;
-            font-size: 1.3rem;
-            font-weight: 600;
-            text-decoration: none;
-            box-shadow: 0 15px 30px rgba(255, 20, 147, 0.4);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(255, 20, 147, 0.6);
-        }
-
-        .cta-button::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
-
-        .cta-button:hover::after {
-            width: 300px;
-            height: 300px;
-        }
-
-        /* Stats Section */
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            margin: 4rem 0;
-        }
-
-        .stat-item {
-            text-align: center;
-            padding: 2rem;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.2);
-        }
-
-        .stat-number {
-            font-size: 3rem;
-            font-weight: 700;
-            background: linear-gradient(45deg, #ff1493, #ff69b4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            display: block;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .logo {
-                font-size: 2.5rem;
-            }
-            .cards-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-            .card {
-                padding: 2rem 1.5rem;
-            }
-        }
-
-        /* Scroll animations */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ABM Strand Infographic</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Arial, sans-serif; background: #f4f4f4; padding: 2rem; color: #1a1a1a; }
+    .hero { background: linear-gradient(135deg, #1D9E75 0%, #0F6E56 100%); border-radius: 12px; padding: 2.5rem 2rem 2rem; text-align: center; margin-bottom: 1.5rem; position: relative; overflow: hidden; }
+    .hero-badge { display: inline-block; background: rgba(255,255,255,0.18); color: #E1F5EE; font-size: 11px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; padding: 5px 14px; border-radius: 20px; margin-bottom: 12px; }
+    .hero-title { font-size: 32px; font-weight: 500; color: #fff; margin-bottom: 8px; line-height: 1.2; }
+    .hero-title span { color: #9FE1CB; }
+    .hero-sub { font-size: 15px; color: rgba(255,255,255,0.8); max-width: 460px; margin: 0 auto; line-height: 1.6; }
+    .section-label { font-size: 11px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: #666; margin-bottom: 12px; }
+    .benefits-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 1.5rem; }
+    .benefit-card { background: #fff; border: 0.5px solid #ddd; border-radius: 12px; padding: 1.25rem 1rem; }
+    .benefit-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; }
+    .benefit-title { font-size: 14px; font-weight: 500; color: #111; margin-bottom: 5px; }
+    .benefit-desc { font-size: 12px; color: #555; line-height: 1.5; }
+    .ic-teal { background: #E1F5EE; } .ic-blue { background: #E6F1FB; } .ic-amber { background: #FAEEDA; }
+    .ic-purple { background: #EEEDFE; } .ic-coral { background: #FAECE7; } .ic-pink { background: #FBEAF0; }
+    .subjects-section { background: #fff; border: 0.5px solid #ddd; border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
+    .subjects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; margin-top: 12px; }
+    .subject-pill { background: #f7f7f5; border: 0.5px solid #ddd; border-radius: 20px; padding: 7px 14px; font-size: 13px; color: #111; display: flex; align-items: center; gap: 8px; }
+    .subject-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .careers-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 1.5rem; }
+    .career-card { background: #fff; border: 0.5px solid #ddd; border-radius: 12px; padding: 1rem; text-align: center; }
+    .career-icon { font-size: 22px; margin-bottom: 6px; }
+    .career-name { font-size: 13px; font-weight: 500; color: #111; margin-bottom: 3px; }
+    .career-field { font-size: 11px; color: #666; }
+    .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 1.5rem; }
+    .stat-card { background: #f0f0ee; border-radius: 8px; padding: 1rem; text-align: center; }
+    .stat-num { font-size: 26px; font-weight: 500; color: #1D9E75; }
+    .stat-label { font-size: 12px; color: #555; margin-top: 2px; line-height: 1.4; }
+    .footer-banner { background: #E1F5EE; border-radius: 12px; padding: 1.25rem 1.5rem; display: flex; align-items: center; gap: 14px; }
+    .footer-icon { width: 40px; height: 40px; background: #1D9E75; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .footer-text { font-size: 14px; color: #085041; line-height: 1.5; }
+    svg.icon { width: 20px; height: 20px; }
+  </style>
 </head>
 <body>
-    <!-- Floating Hearts -->
-    <div class="hearts" id="hearts"></div>
+  <div class="hero">
+    <div class="hero-badge">Senior High School</div>
+    <div class="hero-title"><span>ABM</span> Strand</div>
+    <div class="hero-title" style="font-size:17px;color:rgba(255,255,255,0.85);font-weight:400;margin-top:4px;">Accountancy, Business & Management</div>
+    <p class="hero-sub" style="margin-top:12px;">Your launchpad for a future in business, finance, and entrepreneurship — building real-world skills from day one.</p>
+  </div>
 
-    <!-- Header -->
-    <header class="header fade-in">
-        <h1 class="logo">💕 ABM Strand 💕</h1>
-        <p class="subtitle">Your Gateway to Business Success & Financial Freedom ✨</p>
-    </header>
+  <p class="section-label">Why choose ABM?</p>
+  <div class="benefits-grid">
+    <div class="benefit-card"><div class="benefit-icon ic-teal"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="#0F6E56" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div><div class="benefit-title">Business foundation</div><div class="benefit-desc">Learn core principles of commerce, management, and economics early — giving you a head start in any business degree.</div></div>
+    <div class="benefit-card"><div class="benefit-icon ic-blue"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="#185FA5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div><div class="benefit-title">Wide career paths</div><div class="benefit-desc">Opens doors in accounting, banking, marketing, HR, entrepreneurship, and more — one of the broadest career tracks.</div></div>
+    <div class="benefit-card"><div class="benefit-icon ic-amber"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="#BA7517" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><div class="benefit-title">Real-world readiness</div><div class="benefit-desc">Hands-on learning in budgeting, business planning, and financial literacy prepares you for life beyond school.</div></div>
+    <div class="benefit-card"><div class="benefit-icon ic-purple"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="#534AB7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div class="benefit-title">Leadership skills</div><div class="benefit-desc">Team projects and business simulations build strong communication, decision-making, and people management skills.</div></div>
+    <div class="benefit-card"><div class="benefit-icon ic-coral"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="#993C1D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><div class="benefit-title">Entrepreneurial mindset</div><div class="benefit-desc">Learn to spot opportunities, manage resources, and launch ventures — ideal if you dream of running your own business.</div></div>
+    <div class="benefit-card"><div class="benefit-icon ic-pink"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="#993556" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><div class="benefit-title">Financial literacy</div><div class="benefit-desc">Gain practical knowledge in accounting and finance that benefits you personally and professionally for life.</div></div>
+  </div>
 
-    <div class="container">
-        <!-- Stats Section -->
-        <div class="stats fade-in">
-            <div class="stat-item">
-                <span class="stat-number">95%</span>
-                <p>Employability Rate</p>
-            </div>
-            <div class="stat-item">
-                <span class="stat-number">₱50K+</span>
-                <p>Starting Salary</p>
-            </div>
-            <div class="stat-item">
-                <span class="stat-number">∞</span>
-                <p>Career Options</p>
-            </div>
-            <div class="stat-item">
-                <span class="stat-number">100%</span>
-                <p>Future-Proof</p>
-            </div>
-        </div>
+  <div class="stats-row">
+    <div class="stat-card"><div class="stat-num">#1</div><div class="stat-label">Most enrolled SHS strand in the Philippines</div></div>
+    <div class="stat-card"><div class="stat-num">10+</div><div class="stat-label">Specialized subjects covering business & finance</div></div>
+    <div class="stat-card"><div class="stat-num">30+</div><div class="stat-label">College courses open to ABM graduates</div></div>
+  </div>
 
-        <!-- Advantages Cards -->
-        <h2 style="text-align:center; color:#ff69b4; font-family:'Dancing Script', cursive; font-size:2.5rem;">
-    💼 Your Future Professions 💼
-</h2>
-
-<div class="cards-grid">
-
-    <div class="card fade-in" onclick="openModal('accountant')">
-        <div class="card-icon"><i class="fas fa-calculator"></i></div>
-        <h3>💰 Accountant</h3>
-        <p>Click to explore this career ✨</p>
+  <div class="subjects-section">
+    <p class="section-label">Core subjects you'll study</p>
+    <div class="subjects-grid">
+      <div class="subject-pill"><div class="subject-dot" style="background:#1D9E75;"></div>Business Mathematics</div>
+      <div class="subject-pill"><div class="subject-dot" style="background:#1D9E75;"></div>Fundamentals of Accountancy</div>
+      <div class="subject-pill"><div class="subject-dot" style="background:#378ADD;"></div>Business Finance</div>
+      <div class="subject-pill"><div class="subject-dot" style="background:#378ADD;"></div>Organization & Management</div>
+      <div class="subject-pill"><div class="subject-dot" style="background:#7F77DD;"></div>Applied Economics</div>
+      <div class="subject-pill"><div class="subject-dot" style="background:#7F77DD;"></div>Principles of Marketing</div>
+      <div class="subject-pill"><div class="subject-dot" style="background:#D85A30;"></div>Business Ethics & Social Resp.</div>
+      <div class="subject-pill"><div class="subject-dot" style="background:#D85A30;"></div>Work Immersion / Internship</div>
     </div>
+  </div>
 
-    <div class="card fade-in" onclick="openModal('entrepreneur')">
-        <div class="card-icon"><i class="fas fa-rocket"></i></div>
-        <h3>🚀 Entrepreneur</h3>
-        <p>Click to explore this career ✨</p>
-    </div>
+  <p class="section-label">Career destinations</p>
+  <div class="careers-grid">
+    <div class="career-card"><div class="career-icon">📊</div><div class="career-name">Accountant / CPA</div><div class="career-field">Finance & Audit</div></div>
+    <div class="career-card"><div class="career-icon">🏦</div><div class="career-name">Banking professional</div><div class="career-field">Banking & Finance</div></div>
+    <div class="career-card"><div class="career-icon">📣</div><div class="career-name">Marketing manager</div><div class="career-field">Marketing & Ads</div></div>
+    <div class="career-card"><div class="career-icon">🚀</div><div class="career-name">Entrepreneur</div><div class="career-field">Business Owner</div></div>
+    <div class="career-card"><div class="career-icon">👥</div><div class="career-name">HR manager</div><div class="career-field">Human Resources</div></div>
+    <div class="career-card"><div class="career-icon">💹</div><div class="career-name">Financial analyst</div><div class="career-field">Investments</div></div>
+    <div class="career-card"><div class="career-icon">🏢</div><div class="career-name">Business consultant</div><div class="career-field">Strategy</div></div>
+    <div class="career-card"><div class="career-icon">📦</div><div class="career-name">Supply chain manager</div><div class="career-field">Operations</div></div>
+  </div>
 
-    <div class="card fade-in" onclick="openModal('manager')">
-        <div class="card-icon"><i class="fas fa-briefcase"></i></div>
-        <h3>💼 Business Manager</h3>
-        <p>Click to explore this career ✨</p>
-    </div>
-
-    <div class="card fade-in" onclick="openModal('analyst')">
-        <div class="card-icon"><i class="fas fa-chart-line"></i></div>
-        <h3>📊 Financial Analyst</h3>
-        <p>Click to explore this career ✨</p>
-    </div>
-
-    <div class="card fade-in" onclick="openModal('marketing')">
-        <div class="card-icon"><i class="fas fa-bullhorn"></i></div>
-        <h3>📣 Marketing Specialist</h3>
-        <p>Click to explore this career ✨</p>
-    </div>
-
-    <div class="card fade-in" onclick="openModal('banker')">
-        <div class="card-icon"><i class="fas fa-university"></i></div>
-        <h3>🏦 Banker</h3>
-        <p>Click to explore this career ✨</p>
-    </div>
-
-</div>
-            <div class="card fade-in">
-                <div class="card-icon">
-                    <i class="fas fa-chart-line"></i>
-                </div>
-                <h3>💼 High Demand Careers</h3>
-                <p>Accountants, Financial Analysts, Business Managers, Entrepreneurs - ABM opens doors to lucrative careers with excellent job security and growth opportunities!</p>
-            </div>
-
-            <div class="card fade-in">
-                <div class="card-icon">
-                    <i class="fas fa-coins"></i>
-                </div>
-                <h3>💰 Financial Literacy</h3>
-                <p>Master money management, investments, budgeting, and financial planning. Be financially independent from a young age! 💳✨</p>
-            </div>
-
-            <div class="card fade-in">
-                <div class="card-icon">
-                    <i class="fas fa-rocket"></i>
-                </div>
-                <h3>🚀 Entrepreneurship</h3>
-                <p>Learn how to start and run your own business. Every successful entrepreneur started with business knowledge! 💡</p>
-            </div>
-
-            <div class="card fade-in">
-                <div class="card-icon">
-                    <i class="fas fa-graduation-cap"></i>
-                </div>
-                <h3>🎓 College Advantage</h3>
-                <p>Perfect preparation for Accountancy, Business Admin, Management, Economics, and other top college courses! 📚</p>
-            </div>
-
-            <div class="card fade-in">
-                <div class="card-icon">
-                    <i class="fas fa-users"></i>
-                </div>
-                <h3>👥 Networking</h3>
-                <p>Connect with future business leaders, meet professionals, and build relationships that last a lifetime! 🤝</p>
-            </div>
-
-            <div class="card fade-in">
-                <div class="card-icon">
-                    <i class="fas fa-globe"></i>
-                </div>
-                <h3>🌍 Global Opportunities</h3>
-                <p>Work anywhere in the world! Business skills are universally needed and highly valued internationally! ✈️</p>
-            </div>
-        </div>
-
-        <!-- CTA Section -->
-        <div class="cta-section fade-in">
-            <a href="#enroll" class="cta-button">
-                <i class="fas fa-heart"></i> Enroll in ABM Now! <i class="fas fa-heart"></i>
-            </a>
-            <p style="margin-top: 1rem; color: #ff69b4; font-size: 1.1rem;">
-                Your bright future starts here! 💖
-            </p>
-        </div>
-    </div>
-
-    <script>
-        // Floating Hearts
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.className = 'heart';
-            heart.innerHTML = ['💖', '💕', '💗', '💓', '✨'][Math.floor(Math.random() * 5)];
-            heart.style.left = Math.random() * 100 + '%';
-            heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
-            heart.style.fontSize = (Math.random() * 10 + 15) + 'px';
-            document.getElementById('hearts').appendChild(heart);
-
-            setTimeout(() => {
-                heart.remove();
-            }, 7000);
-        }
-
-        setInterval(createHeart, 300);
-
-        // Scroll Animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.fade-in').forEach(el => {
-            observer.observe(el);
-        });
-
-        // Smooth scrolling for CTA
-        document.querySelector('.cta-button').addEventListener('click', (e) => {
-            e.preventDefault();
-            document.querySelector('.cards-grid').scrollIntoView({
-                behavior: 'smooth'
-            });
-        });
-    </script>
+  <div class="footer-banner">
+    <div class="footer-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+    <div class="footer-text"><strong>ABM is for you if</strong> you love solving problems with numbers, want to run a business someday, or are curious about how organizations and economies work. It's one of the most versatile strands you can choose.</div>
+  </div>
 </body>
 </html>
